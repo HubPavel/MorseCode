@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/app_background">
+
+    <!-- Поле ввода текста -->
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text"
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/button_color"
+        android:padding="8dp"/>
+
+    <!-- Поле вывода перевода -->
+    <TextView
+        android:id="@+id/outputMorse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Translation will appear here"
+        android:textColor="@color/button_text_color"
+        android:backgroundTint="@color/button_color"
+        android:padding="8dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Контейнер для кнопок -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnGo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Go"
+            android:textColor="@color/button_text_color"
+            android:backgroundTint="@color/button_color"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Play"
+            android:textColor="@color/button_text_color"
+            android:backgroundTint="@color/button_color"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"/>
+        <Button
+            android:id="@+id/btnFlashlight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Flashlight"
+            android:textColor="@color/button_text_color"
+            android:backgroundTint="@color/button_color"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+</LinearLayout>

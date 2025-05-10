@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "697167895427",
+    "project_id": "morse-s26493",
+    "storage_bucket": "morse-s26493.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697167895427:android:9a3d5fb934f90a63ebf4b6",
+        "android_client_info": {
+          "package_name": "com.s26493.morse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFiQ3V2tQtI2XKUdgwc8QjB-61K2GmFRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697167895427:android:aae5b7d739fb4622ebf4b6",
+        "android_client_info": {
+          "package_name": "com.s26493.morsecode"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFiQ3V2tQtI2XKUdgwc8QjB-61K2GmFRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

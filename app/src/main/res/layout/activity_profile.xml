@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:padding="16dp"
+android:background="@color/app_background">
+
+<TextView
+    android:id="@+id/tvEmail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Email: "
+    android:textColor="@color/button_text_color"
+    android:textSize="18sp"
+    android:layout_marginBottom="8dp"/>
+
+<TextView
+    android:id="@+id/tvUid"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="UID: "
+    android:textColor="@color/button_text_color"
+    android:textSize="18sp"
+    android:layout_marginBottom="16dp"/>
+
+<Button
+    android:id="@+id/btnChangePassword"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Change Password"
+    android:backgroundTint="@color/button_color"
+    android:textColor="@color/button_text_color"
+    android:layout_marginBottom="16dp"/>
+
+<Button
+    android:id="@+id/btnLogout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Logout"
+    android:backgroundTint="@color/button_color"
+    android:textColor="@color/button_text_color"
+    android:layout_marginBottom="16dp"/>
+
+<Button
+    android:id="@+id/btnDeleteAccount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Delete Account"
+    android:backgroundTint="@color/button_color"
+    android:textColor="@color/button_text_color"/>
+</LinearLayout>
