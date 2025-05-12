@@ -86,15 +86,18 @@ class LessonActivity : AppCompatActivity() {
             }
     }
 
+
     // Pobranie danych kodu Morse’a z Firestore
     private fun loadMorseData() {
         db.collection("morseCode").get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
                     val letter = doc.id
-                    val shortSound = doc.getString("soundShort") ?: ""
-                    val longSound = doc.getString("soundLong") ?: ""
-                    morseMap[letter] = Pair(shortSound, longSound)
+                    val code = doc.getString("code") ?: ""
+                    val shortSound = doc.getString("soundShort") ?: "beep_short"
+                    val longSound = doc.getString("soundLong") ?: "beep_long"
+                    morseMap[letter] = Pair(code, "$shortSound|$longSound")
+                    Log.d("Sound", "Załadowano: $letter -> Kod: $code, Dźwięki: $shortSound | $longSound")
                 }
                 setupKeyboard()
             }
@@ -102,6 +105,7 @@ class LessonActivity : AppCompatActivity() {
                 Toast.makeText(this, "Nie udało się załadować danych Morse’a: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
 
     // Tworzenie klawiatury QWERTY
     private fun setupKeyboard() {
@@ -151,7 +155,6 @@ class LessonActivity : AppCompatActivity() {
             btnNextLesson.visibility = Button.VISIBLE
         }
     }
-
     // Odtwarzanie dźwięku dla aktualnej litery
     private fun playCurrentLetter() {
         if (currentLetterIndex < playOrder.size) {
@@ -160,36 +163,55 @@ class LessonActivity : AppCompatActivity() {
         }
     }
 
-    // Odtwarzanie dźwięków Morse’a
+    // Odtwarzanie dźwięku dla aktualnej litery
+    // Odtwarzanie kodu Morse’a
+    // Odtwarzanie kodu Morse’a
     private fun playMorseCode(letter: String) {
         val morseCode = morseMap[letter]
-        if (morseCode != null) {
-            val morseSequence = morseCode.first
 
-            val queue = ArrayDeque<Int>()
+        if (morseCode != null) {
+            val morseSequence = morseCode.first // Teraz morseSequence to kod typu .- lub --
+            Log.d("Sound", "Odtwarzanie kodu Morse’a dla litery: $letter | Kod: $morseSequence")
+
             for (char in morseSequence) {
                 if (char == '.') {
-                    queue.add(R.raw.beep_short)
+                    playSound(R.raw.beep_short)
                 } else if (char == '-') {
-                    queue.add(R.raw.beep_long)
+                    playSound(R.raw.beep_long)
                 }
             }
-            playMorseQueue(queue)
+        } else {
+            Log.e("Sound", "Brak danych dla litery: $letter")
         }
     }
 
-    // Kolejkowanie i odtwarzanie dźwięków Morse’a
-    private fun playMorseQueue(queue: ArrayDeque<Int>) {
-        if (queue.isEmpty()) return
 
-        val soundRes = queue.removeFirst()
-        mediaPlayer = MediaPlayer.create(this, soundRes)
+
+    // Odtwarzanie dźwięku
+    private fun playSound(resourceId: Int) {
+        mediaPlayer?.release() // Oczyszczamy poprzedni MediaPlayer
+        mediaPlayer = MediaPlayer.create(this, resourceId)
+
+        if (mediaPlayer == null) {
+            Log.e("Sound", "MediaPlayer nie został poprawnie utworzony!")
+            Toast.makeText(this, "Błąd odtwarzania dźwięku", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         mediaPlayer?.setOnCompletionListener {
-            it.release()
-            playMorseQueue(queue) // Odtwarzanie kolejnego dźwięku z kolejki
+            it.release() // Oczyszczamy MediaPlayer po zakończeniu
+            Log.d("Sound", "Dźwięk zakończony.")
         }
+
+        mediaPlayer?.setOnErrorListener { mp, what, extra ->
+            Log.e("Sound", "Błąd odtwarzania: $what | $extra")
+            true
+        }
+
         mediaPlayer?.start()
+        Log.d("Sound", "Odtwarzanie dźwięku: $resourceId")
     }
+
 
     // Obsługa kliknięcia litery na klawiaturze
     private fun onLetterClicked(letter: String) {
@@ -199,19 +221,8 @@ class LessonActivity : AppCompatActivity() {
             showNextLetter()
         } else {
             mistakeCount++
-            if (mistakeCount >= 3) {
-                showHint()
-            } else {
-                Toast.makeText(this, "Spróbuj ponownie!", Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(this, "Spróbuj ponownie!", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    // Pokazanie podpowiedzi po trzech błędach
-    private fun showHint() {
-        val letter = playOrder[currentLetterIndex]
-        tvQuestion.text = letter
-        playMorseCode(letter)
     }
 
     // Przejście do następnej lekcji
